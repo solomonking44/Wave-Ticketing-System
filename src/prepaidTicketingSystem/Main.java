@@ -1,30 +1,30 @@
 package prepaidTicketingSystem;
 
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
+//import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+//import javax.swing.JScrollPane;
+//import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+//import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+//import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+//import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.KeyboardFocusManager;
-import java.awt.LayoutManager;
+//import java.awt.KeyboardFocusManager;
+//import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
+//import java.awt.event.KeyListener;
 import java.util.Random;
 
 public class Main {
@@ -91,55 +91,61 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {			
 				Random rand = new Random();
 				Integer id = rand.nextInt(100000);
-				String[] names = fullNameTextField.getText().split(" ");
-				String firstName = names[0];
-				String lastName = "";
-				if (names.length > 1 && names.length < 3) {
-					lastName = names[1];
-				}
-				else if (names.length > 2){
-					JOptionPane.showMessageDialog(null, "Only two names are accepted!", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-								
-				String ageString = ageTextField.getText();
-				String originZoneString = originZoneRadioButtonGroup.getSelection().getActionCommand();
-				String destinationZoneString = destinationZoneRadioButtonGroup.getSelection().getActionCommand();
-				String numberOfDaysString = numberOfDaysTextField.getText();
-				if (firstName.isEmpty() || ageString.isEmpty() || originZoneString.isEmpty() || destinationZoneString.isEmpty() || numberOfDaysString.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Please fill in all fields", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				else if (originZoneString.equals(destinationZoneString)) {
-					JOptionPane.showMessageDialog(null, "Your origin and destination zones can not be the same!", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					try{
-						Integer age = Integer.parseInt(ageString);
-						Integer originZone = Integer.parseInt(originZoneString);
-						Integer destinationZone = Integer.parseInt(destinationZoneString);
-						Integer numberOfDays = Integer.parseInt(numberOfDaysString);
-						Passenger passenger = new Passenger(id, firstName, lastName, age, originZone, destinationZone, numberOfDays);
-						Ticket passengerTicket = new Ticket(passenger);
-//						System.out.println(passengerTicket.generateTicket());
-						fullNameTextField.setText("");
-						ageTextField.setText("");
-						numberOfDaysTextField.setText("");
-						JOptionPane.showMessageDialog(null, passengerTicket.generateTicket(), "Success", JOptionPane.INFORMATION_MESSAGE);
-						fullNameTextField.setText("");
-						ageTextField.setText("");
-						numberOfDaysTextField.setText("");
+				try {
+					String[] names = fullNameTextField.getText().split(" ");
+					String firstName = names[0];
+					String lastName = "";
+					if (names.length > 1 && names.length < 3) {
+						lastName = names[1];
 					}
-					catch(Exception exception) {
-						JOptionPane.showMessageDialog(null, "Error: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					else if (names.length > 2){
+						JOptionPane.showMessageDialog(null, "Only two names are accepted!", "Error", JOptionPane.ERROR_MESSAGE);
 					}
+									
+					String ageString = ageTextField.getText();
+					String originZoneString = originZoneRadioButtonGroup.getSelection().getActionCommand();
+					String destinationZoneString = destinationZoneRadioButtonGroup.getSelection().getActionCommand();
+					String numberOfDaysString = numberOfDaysTextField.getText();
 					
-					
-				}			
+					if (firstName.isEmpty() || ageString.isEmpty() || originZoneString.isEmpty() || destinationZoneString.isEmpty() || numberOfDaysString.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Please fill in all fields", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					else if (originZoneString.equals(destinationZoneString)) {
+						JOptionPane.showMessageDialog(null, "Your origin and destination zones can not be the same!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						try{
+							Integer age = Integer.parseInt(ageString);
+							Integer originZone = Integer.parseInt(originZoneString);
+							Integer destinationZone = Integer.parseInt(destinationZoneString);
+							Integer numberOfDays = Integer.parseInt(numberOfDaysString);
+							Passenger passenger = new Passenger(id, firstName, lastName, age, originZone, destinationZone, numberOfDays);
+							Ticket passengerTicket = new Ticket(passenger);
+//							System.out.println(passengerTicket.generateTicket());
+							fullNameTextField.setText("");
+							ageTextField.setText("");
+							numberOfDaysTextField.setText("");
+							JOptionPane.showMessageDialog(null, passengerTicket.generateTicket(), "Success", JOptionPane.INFORMATION_MESSAGE);
+							fullNameTextField.setText("");
+							ageTextField.setText("");
+							numberOfDaysTextField.setText("");
+						}
+						catch(Exception exception) {
+							JOptionPane.showMessageDialog(null, "Error: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						}
+						
+						
+					}
+				}catch (Exception except) {
+					JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+
 			}
 		};
 //		logic	
 		
 //		frame configuration
-		frame.setSize(680,600);
+		frame.setSize(900,600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
 		frame.add(keyboardPanel);
