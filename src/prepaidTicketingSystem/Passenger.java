@@ -3,15 +3,26 @@ package prepaidTicketingSystem;
 public class Passenger {
 
 	int id;
-	String fullName;
+	String firstName;
+	String lastName;
 	int age;
 	int originZone;
 	int destinationZone;
 	int numberOfDays;
 	
-	public Passenger(int id, String fullName, int age, int originZone, int destinationZone, int numberOfDays) {
+	public Passenger(int id, String firstName, String lastName, int age, int originZone, int destinationZone, int numberOfDays) {
 		this.id = id;
-		this.fullName = fullName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.originZone = originZone;
+		this.destinationZone = destinationZone;
+		this.numberOfDays = numberOfDays;
+	}
+	
+	public Passenger(int id, String firstName, int age, int originZone, int destinationZone, int numberOfDays) {
+		this.id = id;
+		this.firstName = firstName;
 		this.age = age;
 		this.originZone = originZone;
 		this.destinationZone = destinationZone;
@@ -27,11 +38,12 @@ public class Passenger {
 	}
 
 	public String getFullName() {
-		return fullName;
+		return firstName + " " + lastName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFullName(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public int getAge() {
@@ -68,7 +80,7 @@ public class Passenger {
 
 	@Override
 	public String toString() {
-		return "Passenger [id=" + id + ", fullName=" + fullName + ", age=" + age + ", originZone=" + originZone
+		return "Passenger [id=" + id + ", fullName=" + firstName + " " + lastName + ", age=" + age + ", originZone=" + originZone
 				+ ", destinationZone=" + destinationZone + ", numberOfDays=" + numberOfDays + "]";
 	}
 

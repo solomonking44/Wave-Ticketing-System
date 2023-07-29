@@ -1,24 +1,24 @@
 package prepaidTicketingSystem;
 
-public class Ticket extends Passenger{
+public class Ticket{
 	int discount;
 	double fare;
 	Passenger passenger;
 	
-	public Ticket(int id, String fullName, int age, int originZone, int destinationZone, int numberOfDays) {
-		super(id, fullName, age, originZone, destinationZone, numberOfDays);
+	public Ticket(Passenger passenger) {
+		this.passenger = passenger;
 		this.discount = 0;
 		this.fare = 0;
 	}
 	
 	public int calculateDiscount() {
-		if ((age > 0 && age <= 10) || age >= 50) {
+		if ((passenger.getAge() > 0 && passenger.getAge() <= 10) || passenger.getAge() >= 50) {
 			discount = 40;
 		}
-		else if (numberOfDays >= 7 && numberOfDays < 60) {
+		else if (passenger.getNumberOfDays() >= 7 && passenger.getNumberOfDays() < 60) {
 			discount += 10;
 		}
-		else if (numberOfDays >= 60) {
+		else if (passenger.getNumberOfDays() >= 60) {
 			discount += 40;
 		}
 		else {
@@ -39,7 +39,7 @@ public class Ticket extends Passenger{
 			fare += ConstantDataManager.zone2tozone3;
 		}
 		
-		fare = fare * numberOfDays;
+		fare = fare * passenger.getNumberOfDays();
 		
 		if (discount > 0) {
 			fare = (((100-newDiscount)/100)*fare);
@@ -50,7 +50,7 @@ public class Ticket extends Passenger{
 	}
 	
 	public String generateTicket() {
-		return "New Wave Prepaid Ticket Dispensing Machine\nFull Name: " + this.getFullName() + "\nAge: " + this.getAge() + "\nOrigin Zone: Zone " + this.getOriginZone() + "\nDestination Zone: Zone " + this.getDestinationZone() + "\nNumber of Days: " + this.getNumberOfDays() + "\n******Ticket******\nPassenger Name: " + this.getFullName() + "\nTicket valid for " + this.getNumberOfDays() + " Day(s) \nTotal amount paid (UGX): " + this.calculateFare(this.getOriginZone(), this.getDestinationZone()) + "\nDiscount received: " + this.calculateDiscount() + "%\nThank you for travelling with us!";
+		return "New Wave Prepaid Ticket Dispensing Machine\nFull Name: " + passenger.getFullName() + "\nAge: " + passenger.getAge() + "\nOrigin Zone: Zone " + passenger.getOriginZone() + "\nDestination Zone: Zone " + passenger.getDestinationZone() + "\nNumber of Days: " + passenger.getNumberOfDays() + "\n******Ticket******\nPassenger Name: " + passenger.getFullName() + "\nTicket valid for " + passenger.getNumberOfDays() + " Day(s) \nTotal amount paid (UGX): " + this.calculateFare(passenger.getOriginZone(), passenger.getDestinationZone()) + "\nDiscount received: " + this.calculateDiscount() + "%\nThank you for travelling with us!";
 	}
 	
 }
