@@ -100,22 +100,39 @@ public class Main {
 				else if (names.length > 2){
 					JOptionPane.showMessageDialog(null, "Only two names are accepted!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-				
+								
 				String ageString = ageTextField.getText();
 				String originZoneString = originZoneRadioButtonGroup.getSelection().getActionCommand();
 				String destinationZoneString = destinationZoneRadioButtonGroup.getSelection().getActionCommand();
 				String numberOfDaysString = numberOfDaysTextField.getText();
 				if (firstName.isEmpty() || ageString.isEmpty() || originZoneString.isEmpty() || destinationZoneString.isEmpty() || numberOfDaysString.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Please fill in all fields", "Error", JOptionPane.ERROR_MESSAGE);
-				}else {
-					Integer age = Integer.parseInt(ageString);
-					Integer originZone = Integer.parseInt(originZoneString);
-					Integer destinationZone = Integer.parseInt(destinationZoneString);
-					Integer numberOfDays = Integer.parseInt(numberOfDaysString);
-					Passenger one = new Passenger(id, firstName, lastName, age, originZone, destinationZone, numberOfDays);
-					Ticket oneTicket = new Ticket(one);
-					System.out.println(oneTicket.generateTicket());
-					JOptionPane.showMessageDialog(null, oneTicket.generateTicket(), "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if (originZoneString.equals(destinationZoneString)) {
+					JOptionPane.showMessageDialog(null, "Your origin and destination zones can not be the same!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					try{
+						Integer age = Integer.parseInt(ageString);
+						Integer originZone = Integer.parseInt(originZoneString);
+						Integer destinationZone = Integer.parseInt(destinationZoneString);
+						Integer numberOfDays = Integer.parseInt(numberOfDaysString);
+						Passenger passenger = new Passenger(id, firstName, lastName, age, originZone, destinationZone, numberOfDays);
+						Ticket passengerTicket = new Ticket(passenger);
+//						System.out.println(passengerTicket.generateTicket());
+						fullNameTextField.setText("");
+						ageTextField.setText("");
+						numberOfDaysTextField.setText("");
+						JOptionPane.showMessageDialog(null, passengerTicket.generateTicket(), "Success", JOptionPane.INFORMATION_MESSAGE);
+						fullNameTextField.setText("");
+						ageTextField.setText("");
+						numberOfDaysTextField.setText("");
+					}
+					catch(Exception exception) {
+						JOptionPane.showMessageDialog(null, "Error: " + exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+					
 				}			
 			}
 		};
@@ -238,7 +255,7 @@ public class Main {
 		FocusListener keyPress = new FocusListener() {
 		    @Override
 		    public void focusGained(FocusEvent e) {
-		    	System.out.println((JTextField) e.getComponent());
+//		    	System.out.println((JTextField) e.getComponent());
 		        focusedTextField = (JTextField) e.getSource();
 		    }
 

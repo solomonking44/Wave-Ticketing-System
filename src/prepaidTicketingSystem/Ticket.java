@@ -12,18 +12,19 @@ public class Ticket{
 	}
 	
 	public int calculateDiscount() {
+		discount = 0;
 		if ((passenger.getAge() > 0 && passenger.getAge() <= 10) || passenger.getAge() >= 50) {
-			discount = 40;
-		}
-		else if (passenger.getNumberOfDays() >= 7 && passenger.getNumberOfDays() < 60) {
-			discount += 10;
-		}
-		else if (passenger.getNumberOfDays() >= 60) {
 			discount += 40;
 		}
-		else {
-			
+		
+		if (passenger.getNumberOfDays() >= 7 && passenger.getNumberOfDays() < 60) {
+			discount += 10;
 		}
+		
+		if (passenger.getNumberOfDays() >= 60) {
+			discount += 40;
+		}
+
 		return discount;
 	}
 	
@@ -50,7 +51,7 @@ public class Ticket{
 	}
 	
 	public String generateTicket() {
-		return "New Wave Prepaid Ticket Dispensing Machine\nFull Name: " + passenger.getFullName() + "\nAge: " + passenger.getAge() + "\nOrigin Zone: Zone " + passenger.getOriginZone() + "\nDestination Zone: Zone " + passenger.getDestinationZone() + "\nNumber of Days: " + passenger.getNumberOfDays() + "\n******Ticket******\nPassenger Name: " + passenger.getFullName() + "\nTicket valid for " + passenger.getNumberOfDays() + " Day(s) \nTotal amount paid (UGX): " + this.calculateFare(passenger.getOriginZone(), passenger.getDestinationZone()) + "\nDiscount received: " + this.calculateDiscount() + "%\nThank you for travelling with us!";
+		return "New Wave Prepaid Ticket Dispensing Machine\nFull Name: " + passenger.getFullName() + "\nAge: " + passenger.getAge() + "\nOrigin Zone: Zone " + passenger.getOriginZone() + "\nDestination Zone: Zone " + passenger.getDestinationZone() + "\nNumber of Days: " + passenger.getNumberOfDays() + "\n*******New Wave Buses Prepaid Ticket************\n* Passenger Name: " + passenger.getFullName() + "\n* Ticket valid for " + passenger.getNumberOfDays() + " Day(s) \n* Total amount paid (UGX): " + this.calculateFare(passenger.getOriginZone(), passenger.getDestinationZone()) + "\n* Discount received: " + this.calculateDiscount() + "%\n* Thank you for travelling with us!";
 	}
 	
 }
